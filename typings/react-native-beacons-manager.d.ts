@@ -1,4 +1,5 @@
 declare module 'react-native-beacons-manager' {
+import { DeviceEventEmitterStatic } from "react-native";
 
   export interface BeaconRegion {
     identifier: string,
@@ -15,6 +16,9 @@ declare module 'react-native-beacons-manager' {
     | 'restricted';
 
   class Beacons {
+
+    BeaconsEventEmitter: DeviceEventEmitterStatic;
+
     ///////////////////////////////////////////////////////
     // iOS only
     ///////////////////////////////////////////////////////
