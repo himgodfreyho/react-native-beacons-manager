@@ -370,6 +370,14 @@ RCT_EXPORT_METHOD(shouldDropEmptyRanges:(BOOL)drop)
     return;
   }
 
+  //It is found that regionDidEnter sometimes is not fired after the app is killed for a long time.
+  //It is believed that the when the app is relaunched when entering a region,
+  //the listener in RN JS side is not mounted fast enough,
+  //so that the event will not recevied in JS side.
+  //Before the root cause and a elegent solution is found,
+  //this is a hacky solution to give time for RN JS to load.
+  [NSThread sleepForTimeInterval:0.5f];
+
   NSDictionary *event = [self convertBeaconRegionToDict: region];
 
   if (self.bridge && hasListeners) {
